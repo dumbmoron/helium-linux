@@ -1,0 +1,20 @@
+name: Bump
+
+on: workflow_dispatch
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout third-party repo
+        uses: actions/checkout@v4
+        with: { submodules: true, fetch-depth: 0 }
+
+      - name: Run bump-platform action from helium-chromium
+        uses: imputnet/helium-chromium/.github/actions/bump-platform@test
+        with:
+          token: ${{ github.token }}
